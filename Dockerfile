@@ -30,4 +30,4 @@ EXPOSE 7860
 
 # The model is loaded or trained and saved before the API starts. Runtime secrets are
 # supplied by the Space environment; no .env file is copied into the image.
-CMD ["sh", "-c", "python -c 'from app.model import get_bundle; get_bundle()' && exec uvicorn app.main:app --host 0.0.0.0 --port 7860"]
+CMD ["sh", "-c", "python -c 'from app.model import get_bundle; get_bundle()' && exec uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-7860}"]
