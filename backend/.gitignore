@@ -1,0 +1,4 @@
+
+# Generated RBA samples and run logs (regenerate with scripts/import_rba.py)
+data/rba_*.csv
+data/err.txt

@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
+.coverage
+htmlcov/
+
+# Trained model artefact (regenerated automatically on first request; see README)
+backend/models/*.joblib
+
+# Node / frontend
+node_modules/
+frontend/dist/
+
+# Secrets and local config (the *.example templates stay tracked)
+.env
+.env.*
+!.env.example
+
+# Local databases (may contain scan data)
+var/
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Raw RBA dataset (8 GB) - never commit; import it with scripts/import_rba.py
+data/rba-dataset*
+rba-dataset*/
+
+# Generated data (RBA samples are derived from a third-party dataset; regenerate with scripts)
+data/rba_*.csv
+data/err.txt

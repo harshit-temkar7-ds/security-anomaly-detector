@@ -1,0 +1,2 @@
+# Keep line endings consistent between Windows, macOS and Linux (and CI).
+* text=auto eol=lf
