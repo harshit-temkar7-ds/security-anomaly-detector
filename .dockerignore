@@ -1,0 +1,26 @@
+# Python and Node development artifacts
+**/.venv
+**/venv
+**/__pycache__
+**/.pytest_cache
+**/node_modules
+
+# Runtime data and generated model artifacts
+var/
+**/var/
+*.db
+**/*.db
+*.joblib
+**/*.joblib
+
+# Never put local secrets in the image (including backend/.env)
+.env
+.env.*
+**/.env
+**/.env.*
+
+# Large/private repository content
+data/rba_*.csv
+.git
+.git/**
+docs/

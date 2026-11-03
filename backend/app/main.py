@@ -1,6 +1,8 @@
 """FastAPI application: Security Log Anomaly Detector."""
 from __future__ import annotations
 
+import os
+from pathlib import Path
 from typing import Literal, Optional
 
 from fastapi import FastAPI, File, HTTPException, Query, UploadFile
@@ -78,5 +80,28 @@ def get_scan(scan_id: str):
 
 app.include_router(v2_router)
 app.include_router(ai_router)
+
+
+# The production container opts in; local development continues to use Vite on :5173.
+if os.getenv("SAD_SERVE_FRONTEND") == "1":
+    frontend_dist = Path(__file__).resolve().parents[2] / "frontend" / "dist"
+    frontend_index = frontend_dist / "index.html"
+    if not frontend_index.is_file():
+        raise RuntimeError(f"Built frontend not found: {frontend_index}")
+
+    @app.get("/{frontend_path:path}", include_in_schema=False)
+    def serve_frontend(frontend_path: str):
+        """Serve built assets and return index.html for client-side routes."""
+        if frontend_path == "api" or frontend_path.startswith("api/"):
+            raise HTTPException(404, "Not found.")
+
+        candidate = (frontend_dist / frontend_path).resolve()
+        try:
+            candidate.relative_to(frontend_dist.resolve())
+        except ValueError:
+            candidate = frontend_index
+        if candidate.is_file():
+            return FileResponse(candidate)
+        return FileResponse(frontend_index)
 
 __all__ = ["app", "FEATURES"]
